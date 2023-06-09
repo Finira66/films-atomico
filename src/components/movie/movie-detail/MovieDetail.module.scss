@@ -1,0 +1,25 @@
+.content {
+  padding: 40px 70px;
+  display: flex;
+  align-items: flex-start;
+}
+
+.info {
+  display: grid;
+  grid-template-columns: 130px auto;
+  gap: 12px 8px;
+}
+
+.description {
+  margin-bottom: 24px;
+  font-size: 16px;
+  line-height: 1.7;
+  font-weight: 500;
+  max-width: 800px;
+  margin-right: 80px;
+}
+
+.label {
+  color: #565c67;
+  font-weight: 500;
+}
