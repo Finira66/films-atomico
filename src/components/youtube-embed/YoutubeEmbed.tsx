@@ -1,11 +1,11 @@
-import { FC } from "react";
+import {FC} from "react";
 import styles from "./YoutubeEmbed.module.scss";
 
 interface YoutubeEmbedProps {
   embedLink: string;
 }
 
-const YoutubeEmbed: FC<YoutubeEmbedProps> = ({ embedLink }) => {
+const YoutubeEmbed: FC<YoutubeEmbedProps> = ({embedLink}) => {
   return (
     <div className={styles.video}>
       <iframe

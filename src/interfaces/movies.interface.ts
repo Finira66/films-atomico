@@ -1,5 +1,3 @@
-import {ForwardedRef} from 'react';
-
 interface IMovieGenre {
   id: string;
   text: string;
