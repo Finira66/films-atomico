@@ -1,34 +1,27 @@
 import Movie from "@/components/screens/movie/Movie";
-import { GetStaticProps, NextPage } from "next";
-import { SeriesService } from "@/services/series.service";
-import { ISeries, ISeriesDataFull } from "@/interfaces/series.interface";
+import { NextPage } from "next";
+import { MoviesService } from "@/services/movies.service";
+import { IMovie } from "@/interfaces/movies.interface";
 
-const MoviePage: NextPage = ({ series }) => {
-  return <Movie series={series} />;
+interface IMoviePageProps {
+  movie: IMovie;
+  randomTitles: IMovie[];
+}
+
+const MoviePage: NextPage<IMoviePageProps> = ({ movie, randomTitles }) => {
+  return <Movie movie={movie} randomTitles={randomTitles} />;
 };
 
 export default MoviePage;
 
-export const getStaticPaths = async () => {
-  const series: ISeriesDataFull = await SeriesService.getAllSeries();
-  const paths = series.results.map((series) => {
-    return {
-      params: {
-        id: series.id,
-      },
-    };
-  });
+export async function getServerSideProps({ params }) {
+  const movie = await MoviesService.getMovieById(params.id);
+  const randomTitles = await MoviesService.getRandomTitles();
 
   return {
-    paths,
-    fallback: false,
+    props: {
+      movie: movie.results,
+      randomTitles: randomTitles.results,
+    },
   };
-};
-
-export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const series = await SeriesService.getSeriesById(params.id);
-
-  return {
-    props: { series: series.results },
-  };
-};
+}

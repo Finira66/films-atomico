@@ -1,27 +1,11 @@
 @import "reset";
 @import "variables";
 
-@import "./pages/series";
-
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
-}
-
 body {
   font-size: 16px;
   line-height: 20px;
   background-color: #111113;
   color: $white;
-}
-
-a {
-  text-decoration: none;
-}
-
-button {
-  cursor: pointer;
 }
 
 .container {
@@ -36,9 +20,31 @@ button {
   font-size: 40px;
   line-height: 48px;
   color: $white;
+  &--md {
+    font-size: 32px;
+    line-height: 1;
+    font-weight: 600;
+  }
 }
 
 .text {
   font-size: 16px;
   color: #565c67;
+}
+
+.swiper-button-prev {
+  margin-left: 20px;
+}
+
+.swiper-button-next {
+  margin-right: 20px;
+}
+
+.swiper-button-next, .swiper-button-prev {
+  color: #ff2323 !important;
+}
+
+.swiper-button-disabled {
+  opacity: 0 !important;
+  transition: .2s linear;
 }

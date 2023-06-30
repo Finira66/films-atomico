@@ -1,5 +1,7 @@
+@import "src/styles/variables";
+
 .content {
-  padding: 40px 70px;
+  padding: 40px 70px 70px 70px;
   display: flex;
   align-items: flex-start;
 }
@@ -22,4 +24,55 @@
 .label {
   color: #565c67;
   font-weight: 500;
+}
+
+.trailer-title {
+  font-size: 24px;
+  font-weight: 600;
+  color: $white;
+  margin-bottom: 30px;
+}
+
+.trailer {
+  width: 50%;
+  margin-right: 90px;
+}
+
+.rating {
+  display: flex;
+  align-items: center;
+}
+
+.rating-icon {
+  width: 24px;
+  height: 24px;
+  fill: #969696;
+  margin-right: 6px;
+}
+
+.rating-text {
+  font-size: 16px;
+  line-height: 1;
+  font-weight: 600;
+  color: #969696;
+  margin-top: -2px;
+}
+
+.additional-info {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.additional-info-item {
+  margin-right: 30px;
+
+  &:last-child {
+    margin-right: 0;
+  }
+}
+
+.genres {
+  display: flex;
+  align-items: center;
 }

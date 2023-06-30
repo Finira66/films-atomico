@@ -16,10 +16,10 @@ const Header = () => {
         />
       </Link>
       <nav className={styles.nav}>
-        <Link href="/series" className={styles.link}>
+        <Link href="" className={styles.link}>
           Series
         </Link>
-        <Link href="/series" className={styles.link}>
+        <Link href="/movies" className={styles.link}>
           Movies
         </Link>
         <a href="" className={styles.link}>

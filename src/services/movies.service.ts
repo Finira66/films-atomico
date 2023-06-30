@@ -6,22 +6,33 @@ axios.defaults.headers.common["X-RapidAPI-Key"] =
 axios.defaults.headers.common["X-RapidAPI-Host"] =
   "moviesdatabase.p.rapidapi.com";
 
-export const SeriesService = {
-  async getAllSeries() {
+export const MoviesService = {
+  async getAllMovies(page = 1) {
     const { data } = await axios.get("/titles", {
       params: {
-        list: "most_pop_series",
+        list: "most_pop_movies",
         info: "mini_info",
+        page: page,
       },
     });
 
     return data;
   },
 
-  async getSeriesById(id: string) {
+  async getMovieById(id: string) {
     const { data } = await axios.get(`/titles/${id}`, {
       params: {
         info: "custom_info",
+      },
+    });
+
+    return data;
+  },
+
+  async getRandomTitles() {
+    const { data } = await axios.get("/titles/random", {
+      params: {
+        list: "most_pop_movies",
       },
     });
 
