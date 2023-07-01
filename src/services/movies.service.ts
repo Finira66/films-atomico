@@ -38,4 +38,9 @@ export const MoviesService = {
 
     return data;
   },
+
+  async getAllGenres() {
+    const { data } = await axios.get("/titles/utils/genres");
+    return data;
+  },
 };
