@@ -31,6 +31,10 @@
   }
 }
 
+.open {
+  transform: rotate(180deg);
+}
+
 .remove {
   margin-left: 10px;
 
@@ -56,11 +60,14 @@
   grid-template-columns: repeat(5, 288px);
   gap: 20px;
   opacity: 0;
+  visibility: hidden;
   user-select: none;
+  transition: 0.1s linear;
 }
 
 .visible {
   opacity: 1;
+  visibility: visible;
 }
 
 .link {

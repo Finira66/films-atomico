@@ -29,7 +29,9 @@ const DropdownSelect: FC<IDropdownSelectProps> = ({
         {label}
         <ReactSVG
           src="/icons/arrow-down-s-line.svg"
-          className={styles.chevron}
+          className={`${styles.chevron} ${
+            isDropdownVisible ? styles.open : ""
+          }`}
         />
         {isResetVisible && (
           <ReactSVG
