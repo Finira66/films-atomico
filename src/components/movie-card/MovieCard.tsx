@@ -1,12 +1,12 @@
 import Image from "next/image";
-import {FC, ForwardedRef, forwardRef} from "react";
-import {IMovie} from "@/interfaces/movies.interface";
+import { FC, ForwardedRef, forwardRef } from "react";
+import { IMovie } from "@/interfaces/movies.interface";
 import styles from "./MovieCard.module.scss";
 import Link from "next/link";
 
 interface IMovieCardProps {
-  movie: IMovie,
-  ref?: ForwardedRef<HTMLAnchorElement>
+  movie: IMovie;
+  ref?: ForwardedRef<HTMLAnchorElement>;
 }
 
 const MovieCard: FC<IMovieCardProps> = forwardRef(({ movie }, ref) => {
@@ -18,6 +18,7 @@ const MovieCard: FC<IMovieCardProps> = forwardRef(({ movie }, ref) => {
         width={0}
         height={0}
         sizes="100vw"
+        priority={true}
         className={styles.image}
       />
       <div className={styles.name}>{movie.titleText.text}</div>
@@ -25,6 +26,6 @@ const MovieCard: FC<IMovieCardProps> = forwardRef(({ movie }, ref) => {
     </Link>
   );
 });
-MovieCard.displayName = "MovieCard"
+MovieCard.displayName = "MovieCard";
 
 export default MovieCard;

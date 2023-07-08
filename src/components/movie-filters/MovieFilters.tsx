@@ -1,57 +1,56 @@
 import { FC, useEffect, useState } from "react";
 import styles from "./MovieFilters.module.scss";
-import SelectFilter from "@/components/movie-filters/select-filter/SelectFilter";
-import FiltersList from "@/components/movie-filters/filters-list/FiltersList";
-import { MoviesService } from "@/services/movies.service";
+import DropdownSelect from "@/components/ui/dropdown-select/DropdownSelect";
 
 interface IMovieFiltersProps {
   genres: string[];
+  setSelectedGenre?: (item: string | null) => void;
   selectedGenre: string;
-  setSelectedGenre: (genre: string) => void;
 }
 
 const MovieFilters: FC<IMovieFiltersProps> = ({
   genres,
-  selectedGenre,
   setSelectedGenre,
+  selectedGenre,
 }) => {
-  const [filters, setFilters] = useState([
-    {
-      id: 1,
-      type: "genres",
-      label: "All genres",
-      list: [],
-    },
-    {
-      id: 2,
-      type: "countries",
-      label: "All countries",
-      list: [],
-    },
-  ]);
-
-  const [selected, setSelected] = useState("All genres");
-  const [selectedList, setSelectedList] = useState([]);
-  const [isOpen, setIsOpen] = useState(false);
+  const defaultGenreLabel = "All genres";
+  const [dropdownList, setDropdownList] = useState<string[]>([]);
+  const [isDropdownListOpen, setIsDropdownListOpen] = useState<boolean>(false);
+  const [labelGenre, setLabelGenre] = useState(defaultGenreLabel);
 
   useEffect(() => {
-    async function fetchAllGenres() {
-      const { results } = await MoviesService.getAllGenres();
-      console.log(results);
-    }
+    setDropdownList(genres);
+  });
 
-    fetchAllGenres();
-  }, []);
+  function onToggleFiltersList() {
+    setIsDropdownListOpen(!isDropdownListOpen);
+  }
+
+  function onSelectButton(item: string) {
+    setSelectedGenre(item);
+    item ? setLabelGenre(item) : setLabelGenre(defaultGenreLabel);
+    setIsDropdownListOpen(false);
+  }
+
+  function resetFilter(e: Event) {
+    e.stopPropagation();
+    setSelectedGenre(null);
+    setLabelGenre(defaultGenreLabel);
+    setIsDropdownListOpen(false);
+  }
 
   return (
     <div className={styles.filters}>
-      <div className={styles.options}>
-        {filters.map((filter) => (
-          <SelectFilter key={filter.id} label={filter.label} />
-        ))}
-      </div>
-
-      <FiltersList list={selectedList} />
+      <DropdownSelect
+        label={labelGenre}
+        list={dropdownList}
+        onToggleDropdownList={onToggleFiltersList}
+        isResetVisible={!!selectedGenre}
+        resetFilter={resetFilter}
+        isDropdownVisible={isDropdownListOpen}
+        defaultTitle={defaultGenreLabel}
+        onSelect={onSelectButton}
+      />
     </div>
   );
 };

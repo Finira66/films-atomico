@@ -1,0 +1,70 @@
+@import "src/styles/variables";
+
+.filter-select {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  border-radius: 8px;
+  transition: background-color 0.2s ease-in-out;
+  cursor: pointer;
+  background-color: rgba(86, 92, 103, 0.16);
+  width: 280px;
+  height: 40px;
+  margin-left: 24px;
+  color: rgba($white, 0.8);
+  font-weight: 500;
+  user-select: none;
+
+  &:first-child {
+    margin-left: 0;
+  }
+}
+
+.chevron {
+  margin-left: auto;
+
+  svg {
+    width: 16px;
+    height: 8px;
+    fill: $white;
+  }
+}
+
+.remove {
+  margin-left: 10px;
+
+  svg {
+    width: 10px;
+    height: 10px;
+    fill: $white;
+  }
+}
+
+.choices {
+  background: linear-gradient(
+    to bottom,
+    rgba(17, 17, 19, 0.96),
+    rgba(31, 33, 37, 0.96)
+  );
+  padding: 25px 70px 30px 70px;
+  position: absolute;
+  left: 0;
+  z-index: 10;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(5, 288px);
+  gap: 20px;
+  opacity: 0;
+  user-select: none;
+}
+
+.visible {
+  opacity: 1;
+}
+
+.link {
+  font-weight: 500;
+  color: $white;
+  font-size: 16px;
+}
