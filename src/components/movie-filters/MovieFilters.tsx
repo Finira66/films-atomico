@@ -1,42 +1,45 @@
 import { FC, useEffect, useState } from "react";
 import styles from "./MovieFilters.module.scss";
 import DropdownSelect from "@/components/ui/dropdown-select/DropdownSelect";
+import { MoviesService } from "@/services/movies.service";
+import {useRouter} from "next/router";
 
-interface IMovieFiltersProps {
-  genres: string[];
-  setSelectedGenre?: (item: string | null) => void;
-  selectedGenre: string;
-}
+const MovieFilters: FC = () => {
+  const router = useRouter();
+  const { genre } = router.query;
 
-const MovieFilters: FC<IMovieFiltersProps> = ({
-  genres,
-  setSelectedGenre,
-  selectedGenre,
-}) => {
-  const defaultGenreLabel = "All genres";
   const [dropdownList, setDropdownList] = useState<string[]>([]);
   const [isDropdownListOpen, setIsDropdownListOpen] = useState<boolean>(false);
+  const defaultGenreLabel = "All genres";
   const [labelGenre, setLabelGenre] = useState(defaultGenreLabel);
 
   useEffect(() => {
-    setDropdownList(genres);
-  });
+    if (genre) {
+      setLabelGenre(genre);
+    }
+  }, [genre])
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const { results } = await MoviesService.getAllGenres();
+      setDropdownList(results);
+    };
+    fetchData();
+  }, []);
 
   function onToggleFiltersList() {
     setIsDropdownListOpen(!isDropdownListOpen);
   }
 
   function onSelectButton(item: string) {
-    setSelectedGenre(item);
-    item ? setLabelGenre(item) : setLabelGenre(defaultGenreLabel);
     setIsDropdownListOpen(false);
+    item ? setLabelGenre(item) : setLabelGenre(defaultGenreLabel);
   }
 
   function resetFilter(e: Event) {
     e.stopPropagation();
-    setSelectedGenre(null);
-    setLabelGenre(defaultGenreLabel);
     setIsDropdownListOpen(false);
+    setLabelGenre(defaultGenreLabel);
   }
 
   return (
@@ -45,7 +48,7 @@ const MovieFilters: FC<IMovieFiltersProps> = ({
         label={labelGenre}
         list={dropdownList}
         onToggleDropdownList={onToggleFiltersList}
-        isResetVisible={!!selectedGenre}
+        isResetVisible={genre === labelGenre}
         resetFilter={resetFilter}
         isDropdownVisible={isDropdownListOpen}
         defaultTitle={defaultGenreLabel}

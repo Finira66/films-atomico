@@ -21,7 +21,7 @@ const MovieInfo: FC<IMovieDataSingle> = ({ movie }) => {
       <div className={styles.content}>
         <div className={styles.name}>{movie.titleText.text}</div>
 
-        <div className={styles.seasons}>
+        {/*<div className={styles.seasons}>
           <div className={`${styles.text} ${styles["seasons-label"]}`}>
             Seasons:
           </div>
@@ -31,7 +31,7 @@ const MovieInfo: FC<IMovieDataSingle> = ({ movie }) => {
             <button className={styles["season-button"]}>2</button>
             <button className={styles["season-button"]}>3</button>
           </div>
-        </div>
+        </div>*/}
 
         <div className={styles.buttons}>
           <Button className={`${styles.button} ${styles["button--red"]}`}>
@@ -48,17 +48,13 @@ const MovieInfo: FC<IMovieDataSingle> = ({ movie }) => {
             />
             В избранное
           </Button>
-          <Button
-            className={`${styles.button} ${styles["button--small"]}`}
-          >
+          <Button className={`${styles.button} ${styles["button--small"]}`}>
             <ReactSVG
               src="/icons/thumb-up-line.svg"
               className={styles["button-icon"]}
             />
           </Button>
-          <Button
-            className={`${styles.button} ${styles["button--small"]}`}
-          >
+          <Button className={`${styles.button} ${styles["button--small"]}`}>
             <ReactSVG
               src="/icons/thumb-down-line.svg"
               className={styles["button-icon"]}

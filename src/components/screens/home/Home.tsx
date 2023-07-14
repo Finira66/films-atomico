@@ -3,7 +3,7 @@ import Layout from "@/components/layout/Layout";
 const Home = () => {
   return (
     <Layout>
-      <div>home</div>
+      <div className="container container--py">home page</div>
     </Layout>
   );
 };

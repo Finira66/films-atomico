@@ -1,38 +1,46 @@
 import { useEffect, useRef, useState } from "react";
 import { MoviesService } from "@/services/movies.service";
 import { IMoviesDataFull } from "@/interfaces/movies.interface";
+import { useRouter } from "next/router";
 
-export default function useMovies(pageNumber, selectedGenre) {
+export default function useMovies(pageNumber, setPageNumber, isFetching, setIsFetching) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [movies, setMovies] = useState([]);
-  const loadedRef = useRef(false);
+
+  const router = useRouter();
+  const { genre } = router.query;
+
 
   useEffect(() => {
     setMovies([]);
-  }, [selectedGenre]);
+    setPageNumber(1);
+    setIsFetching(true);
+  }, [genre]);
 
   useEffect(() => {
-    if (loadedRef.current) return;
-    loadedRef.current = true;
 
-    const fetchData = async () => {
-      setLoading(true);
-      setError(false);
-      try {
-        const { results, page }: IMoviesDataFull =
-          await MoviesService.getAllMovies(pageNumber, selectedGenre);
-        setMovies((prevMovies) => {
-          return [...new Set([...prevMovies, ...results])];
-        });
-        loadedRef.current = false;
-        setLoading(false);
-      } catch (e) {
-        setError(true);
-      }
-    };
-    fetchData();
-  }, [pageNumber, selectedGenre]);
+    if (isFetching && router.isReady) {
+      const fetchData = async () => {
+        setLoading(true);
+        setError(false);
+        try {
+          const { results }: IMoviesDataFull = await MoviesService.getAllMovies(
+            pageNumber,
+            genre
+          );
+          setMovies(movies => [...movies, ...results]);
+          setPageNumber(prevPage => prevPage + 1);
+        } catch (e) {
+          setError(true);
+        } finally {
+          setLoading(false);
+          setIsFetching(false)
+        }
+      };
+      fetchData();
+    }
+  }, [isFetching, genre]);
 
   return {
     movies,

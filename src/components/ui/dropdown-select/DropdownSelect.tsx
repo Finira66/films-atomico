@@ -1,6 +1,7 @@
 import React, { FC } from "react";
 import styles from "@/components/ui/dropdown-select/DropdownSelect.module.scss";
 import { ReactSVG } from "react-svg";
+import Link from "next/link";
 
 interface IDropdownSelectProps {
   label: string;
@@ -34,11 +35,13 @@ const DropdownSelect: FC<IDropdownSelectProps> = ({
           }`}
         />
         {isResetVisible && (
-          <ReactSVG
-            src="/icons/close-line.svg"
-            className={styles.remove}
-            onClick={(e) => resetFilter(e)}
-          />
+          <Link href="/movies">
+            <ReactSVG
+                src="/icons/close-line.svg"
+                className={styles.remove}
+                onClick={(e) => resetFilter(e)}
+            />
+          </Link>
         )}
       </div>
 
@@ -50,23 +53,32 @@ const DropdownSelect: FC<IDropdownSelectProps> = ({
         {list.map((item) => {
           if (item) {
             return (
-              <button
+              <Link
+                href={{
+                  pathname: "/movies",
+                  query: {
+                    genre: item,
+                  },
+                }}
                 key={item}
                 className={styles.link}
                 onClick={() => onSelect(item)}
               >
                 {item}
-              </button>
+              </Link>
             );
           } else {
             return (
-              <button
+              <Link
+                href={{
+                  pathname: "/movies",
+                }}
                 key={item}
                 className={styles.link}
                 onClick={() => onSelect(item)}
               >
                 {defaultTitle}
-              </button>
+              </Link>
             );
           }
         })}

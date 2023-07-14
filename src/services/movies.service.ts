@@ -7,7 +7,7 @@ axios.defaults.headers.common["X-RapidAPI-Host"] =
   "moviesdatabase.p.rapidapi.com";
 
 export const MoviesService = {
-  async getAllMovies(page = 1, genre = null) {
+  async getAllMovies(page = 1, genre) {
     const { data } = await axios.get("/titles", {
       params: {
         list: "most_pop_movies",
